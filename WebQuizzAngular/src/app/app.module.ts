@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { QuizzPageComponent } from './quizz-page/quizz-page.component';
+import { NavComponent } from './nav/nav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    QuizzPageComponent
+    QuizzPageComponent,
+    NavComponent
   ],
   imports: [
     BrowserModule,
