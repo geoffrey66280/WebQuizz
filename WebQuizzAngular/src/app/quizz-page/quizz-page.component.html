@@ -4,7 +4,7 @@
     </p>
 
     <div>
-        <input type="text" class="reponse">
+        <input type="text" class="reponse" [formControl]="reponseForm" (keyup.enter)="submitResponse(reponseForm.value)" formControlName="name">
     </div>
 
 </div>
