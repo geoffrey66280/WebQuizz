@@ -21,7 +21,14 @@
     margin-top: 8em;
     width: 50em;
     height: 3em;
+    border: solid 1px gray;
     border-radius: 16px;
     box-sizing: border-box;
     font-size: larger;
+    transition: 0.08s;
+
+    &:focus {
+        border: solid 2px black;
+        outline: none;
+    }
 }
