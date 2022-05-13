@@ -44,7 +44,6 @@ export class Animations implements AfterViewInit, OnChanges {
     function step() {
       currentSinValue += sinValueIncrement;
       currentValue += valueIncrement * Math.sin(currentSinValue) ** 2 * 2;
-
       element.nativeElement.textContent = Math.abs(Math.floor(currentValue));
 
       if (currentSinValue < Math.PI) {

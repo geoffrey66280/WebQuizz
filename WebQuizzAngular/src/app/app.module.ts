@@ -7,6 +7,9 @@ import { QuizzPageComponent } from './quizz-page/quizz-page.component';
 import { NavComponent } from './nav/nav.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Animations } from './animations/animations.component';
+import { ConnectComponent } from './connect/connect.component';
+import { calculsService } from './services/calculs.service';
+import { questionService } from './services/question.service';
 
 @NgModule({
   declarations: [
@@ -14,6 +17,7 @@ import { Animations } from './animations/animations.component';
     QuizzPageComponent,
     NavComponent,
     Animations,
+    ConnectComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +25,7 @@ import { Animations } from './animations/animations.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [calculsService, questionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

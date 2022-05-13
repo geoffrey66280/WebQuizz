@@ -20,7 +20,6 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   isDisabled: boolean = false;
   showTitle: boolean = false;
 
-  nums: Array<number> = [25, 76, 48];
   @ViewChild("oneItem") oneItem: any;
   @ViewChildren("count") count!: QueryList<any>;
 
@@ -31,7 +30,6 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     const time = interval(60000);
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
-      console.log(this.allQuestions);
       this.showTitle = true;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)];
     });

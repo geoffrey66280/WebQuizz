@@ -1,0 +1,19 @@
+<div class="background">
+    <div class="form-card">
+        <h2>Connexion</h2>
+        <div *ngIf="showText">
+            <p>{{ text }}</p>
+        </div>
+        <div class="form-group">
+            <label for="UserName">Email</label>
+            <input type="text" id="user" [formControl]="idForm">
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de passe</label>
+            <input type="password" id="password" [formControl]="passForm">
+        </div>
+        <div class="action-buttons">
+            <button>Connexion</button>
+        </div>
+    </div>
+</div>
