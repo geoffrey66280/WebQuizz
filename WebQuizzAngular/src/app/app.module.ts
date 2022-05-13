@@ -11,6 +11,7 @@ import { ConnectComponent } from './connect/connect.component';
 import { calculsService } from './services/calculs.service';
 import { questionService } from './services/question.service';
 import { RegisterComponent } from './register/register.component';
+import { MenuComponent } from './menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { RegisterComponent } from './register/register.component';
     Animations,
     ConnectComponent,
     RegisterComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
