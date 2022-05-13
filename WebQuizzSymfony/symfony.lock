@@ -77,11 +77,43 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.12"
     },
+    "jms/metadata": {
+        "version": "2.6.1"
+    },
+    "jms/serializer": {
+        "version": "3.17.1"
+    },
+    "jms/serializer-bundle": {
+        "version": "4.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "384cec52df45f3bfd46a09930d6960a58872b268"
+        },
+        "files": [
+            "./config/packages/dev/jms_serializer.yaml",
+            "./config/packages/jms_serializer.yaml",
+            "./config/packages/prod/jms_serializer.yaml"
+        ]
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
+    },
+    "phpdocumentor/reflection-common": {
+        "version": "2.2.0"
+    },
+    "phpdocumentor/reflection-docblock": {
+        "version": "5.3.0"
+    },
+    "phpdocumentor/type-resolver": {
+        "version": "1.6.1"
+    },
+    "phpstan/phpdoc-parser": {
+        "version": "1.5.1"
     },
     "psr/cache": {
         "version": "3.0.0"
@@ -201,6 +233,12 @@
     "symfony/polyfill-php81": {
         "version": "v1.25.0"
     },
+    "symfony/property-access": {
+        "version": "v6.0.8"
+    },
+    "symfony/property-info": {
+        "version": "v6.0.7"
+    },
     "symfony/proxy-manager-bridge": {
         "version": "v6.0.6"
     },
@@ -220,6 +258,9 @@
     "symfony/runtime": {
         "version": "v6.0.8"
     },
+    "symfony/serializer": {
+        "version": "v6.0.8"
+    },
     "symfony/service-contracts": {
         "version": "v3.0.1"
     },
@@ -237,5 +278,8 @@
     },
     "symfony/yaml": {
         "version": "v6.0.3"
+    },
+    "webmozart/assert": {
+        "version": "1.10.0"
     }
 }

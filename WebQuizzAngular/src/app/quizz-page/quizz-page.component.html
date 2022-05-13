@@ -1,10 +1,10 @@
 <div id="quiz">
-    <p class="titre">
-       Titre Question
+    <p class="titre" *ngIf="showTitle">
+       {{ currentQuestion.titre }}
     </p>
 
     <div>
-        <input type="text" class="reponse" [formControl]="reponseForm" (keyup.enter)="submitResponse(reponseForm.value)" formControlName="name">
+        <input type="text" class="reponse" [formControl]="reponseForm" (keyup.enter)="submitResponse(reponseForm.value)">
     </div>
 
 </div>

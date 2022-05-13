@@ -1,5 +1,5 @@
 export class Question {
     id!: number;
-    question!: string;
+    titre!: string;
     reponse!: string;
 }
