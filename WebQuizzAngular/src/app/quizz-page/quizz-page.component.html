@@ -6,5 +6,9 @@
     <div>
         <input type="text" class="reponse" [formControl]="reponseForm" (keyup.enter)="submitResponse(reponseForm.value)">
     </div>
+    <div id="points">
+        <animations [digit]="points" [duration]="1000"></animations>
+    </div>
+    
 
 </div>
