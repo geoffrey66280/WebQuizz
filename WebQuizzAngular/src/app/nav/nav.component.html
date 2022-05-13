@@ -1,20 +1,25 @@
 <div id="header">
-
-    <a routerLink="" routerLinkActive="">
+    <a routerLink="" class="minideco">
         <div class="nav">
-            <a routerLink="" routerLinkActive="">Menu</a>
+            <a routerLink="" >Menu</a>
         </div>
     </a>
 
-    <a routerLink="quizz" routerLinkActive="quizz">
+    <a routerLink="quizz" class="minideco">
         <div class="nav">
-            <a routerLink="quizz" routerLinkActive="quizz">Quizz</a>
+            <a routerLink="quizz" >Quizz</a>
         </div>
     </a>
 
-    <a routerLink="connection" routerLinkActive="connection">
+    <a routerLink="connection" class="minideco">
         <div class="nav">
-            <a routerLink="connection" routerLinkActive="connection">Connexion</a>
+            <a routerLink="connection" >Sign in</a>
+        </div>
+    </a>
+
+    <a routerLink="register" class="minideco" *ngIf="!isSigned">
+        <div class="nav">
+            <a routerLink="register" >Sign up</a>
         </div>
     </a>
 </div>

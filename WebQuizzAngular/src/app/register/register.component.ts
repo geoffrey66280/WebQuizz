@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-connect',
-  templateUrl: './connect.component.html',
-  styleUrls: ['./connect.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
-export class ConnectComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   passForm = new FormControl('', [Validators.email]);
   idForm = new FormControl('');
@@ -21,5 +21,4 @@ export class ConnectComponent implements OnInit {
   onConnect(email: string, pass: string) {
 
   }
-
 }

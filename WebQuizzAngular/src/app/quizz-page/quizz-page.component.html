@@ -1,14 +1,16 @@
 <div id="quiz">
-    <p class="titre" *ngIf="showTitle">
-       {{ currentQuestion.titre }}
-    </p>
-
+    <div class="title">
+        <p class="titre">
+            {{ currentQuestion.titre }}
+        </p>
+    </div>
     <div>
-        <input type="text" class="reponse" [formControl]="reponseForm" (keyup.enter)="submitResponse(reponseForm.value)">
+        <input type="text" class="reponse" [formControl]="reponseForm"
+            (keyup.enter)="submitResponse(reponseForm.value)">
     </div>
     <div id="points">
         <animations [digit]="points" [duration]="1000"></animations>
     </div>
-    
+
 
 </div>

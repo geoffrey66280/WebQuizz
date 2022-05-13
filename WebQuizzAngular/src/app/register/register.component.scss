@@ -1,0 +1,70 @@
+.background {
+    left: 0;
+    top: 0;
+    position: fixed;
+    background-color: rgb(65, 31, 63);
+    width: 100%;
+    height: 100%;
+    margin-top: 4em;
+}
+.form-card {
+    background-color: white;
+    margin: auto;
+    box-sizing: border-box;
+    width: 50%;
+    margin: 10em auto;
+    padding: 10px 30px;
+    box-shadow: black 4px 4px 20px;
+  }
+  
+  .form-group {
+    margin: 10px auto;
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    letter-spacing: 1.5px;
+    font-size: large;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  input, textarea {
+    width: 60%;
+    border-radius: 14px;
+    border: solid 1px;
+    height: 2em;
+    box-sizing: border-box;
+    transition: 0.5s;
+    font-size: medium;
+
+    &:focus {
+        background-color: rgb(233, 127, 226);
+    }
+  }
+  
+  .action-buttons {
+    width: 100%;
+  }
+  
+  button {
+    color: black;
+    display: block;
+    margin: 3em auto;
+    border: solid 2px black;
+    width: 15em;
+    height: 2em;
+    border-radius: 16px;
+    background-color: white;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: rgb(233, 127, 226);
+        transform: translateY(1px);
+        box-shadow: 4px 4px 20px 2px;
+    }
+
+    &:active {
+      transform: translateX(1px);
+      box-shadow: 2px 4px 15px 1px;
+    }
+  }

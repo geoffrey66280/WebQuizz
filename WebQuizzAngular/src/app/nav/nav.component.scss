@@ -1,3 +1,13 @@
+
+.minideco {
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+        text-underline-offset: 2px;
+    }
+}
+
 #header {
     background-color: rgb(61, 61, 65);
     left: 0;

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
+  isSigned: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

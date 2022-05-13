@@ -10,6 +10,7 @@ import { Animations } from './animations/animations.component';
 import { ConnectComponent } from './connect/connect.component';
 import { calculsService } from './services/calculs.service';
 import { questionService } from './services/question.service';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { questionService } from './services/question.service';
     NavComponent,
     Animations,
     ConnectComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
