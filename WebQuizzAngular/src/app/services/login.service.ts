@@ -13,9 +13,9 @@ export class loginService {
     constructor(private http: HttpClient) { }
 
     encrypt(value: string): string {
-            return CryptoJS.AES.encrypt(value, this.secretKey.trim()).toString();
-        }
-    
+        return CryptoJS.AES.encrypt(value, this.secretKey.trim()).toString();
+    }
+
 
     decrypt(textToDecrypt: string) {
         return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
@@ -25,20 +25,20 @@ export class loginService {
         const param = new HttpParams().append('email', name).append('password', pass);
         this.http.post('http://localhost:8000/users/add/', JSON.stringify(param), {
             headers: myheader
-    }).subscribe();
+        }).subscribe();
     }
 
     getUsers() {
-        let users : EventEmitter<Logs[]> = new EventEmitter<Logs[]>();
-        
+        let users: EventEmitter<Logs[]> = new EventEmitter<Logs[]>();
+
         this.http.get<Logs[]>('http://localhost:8000/getUsers').subscribe(
-          (usersList) => {
-            users.emit(usersList);
-        }, (error) => {
-          console.log(error);
-        });
-        
+            (usersList) => {
+                users.emit(usersList);
+            }, (error) => {
+                console.log(error);
+            });
+
         return users;
-    
-      }
+
+    }
 }

@@ -1,0 +1,17 @@
+<div class="background">
+    <div class="form-card">
+        <h2>Ajouter une question</h2>
+        
+        <div class="form-group">
+            <label for="UserName">Question</label>
+            <input type="email" id="user" [formControl]="questionForm">
+        </div>
+        <div class="form-group">
+            <label for="password">Réponse</label>
+            <input type="password" id="password" [formControl]="reponseForm">
+        </div>
+        <div class="action-buttons">
+            <button (click)="addQuest(questionForm.value, reponseForm.value)">Ajouter</button>
+        </div>
+    </div>
+</div>

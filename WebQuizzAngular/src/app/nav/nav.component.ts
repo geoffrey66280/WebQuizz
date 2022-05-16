@@ -21,5 +21,4 @@ export class NavComponent implements OnInit {
     this.cookies.deleteAll();
     window.location.reload();
   }
-
 }

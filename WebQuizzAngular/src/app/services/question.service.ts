@@ -24,4 +24,17 @@ export class questionService {
     
       }
 
+
+      addQuestion(titre: string, reponse: string) {
+        const myheader = new HttpHeaders().append('Content-Type', 'application/json; charset=utf-8');
+        const param = new HttpParams().append('titre', titre).append('reponse', reponse);
+        this.http.post('http://localhost:8000/question/add/', JSON.stringify(param), {
+            headers: myheader
+    }).subscribe((response => {
+      console.log(reponse);
+    }),
+    error => {
+      console.log(error);
+    });
+  }
 }

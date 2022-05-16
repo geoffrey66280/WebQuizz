@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\Question;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -36,6 +37,43 @@ class questionController extends AbstractController {
         $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    /**
+     * @Route("/question/add/", name="add_question")
+     */
+    public function addUser(ManagerRegistry $doc, Request $request)
+    {
+
+        $content = json_decode($request->getContent(), true);
+        $updates = $content['updates'];
+        $paramUsers = $updates[0];
+        $paramPass = $updates[1];
+        
+        $titre = $paramUsers['value'];
+        $reponse = $paramPass['value'];
+       
+        // database request
+       $question = $doc->getRepository(Question::class);
+
+        // setTime of users
+        $question = new Question();
+        $question->setTitre($titre);
+        $question->setReponse($reponse);
+        // persist
+        $dc = $doc->getManager();
+
+        // pushs
+        $dc->persist($question);
+        $dc->flush();
+
+        $reponse = new Response();
+        $reponse->setContent(json_encode([
+            'titre' => $titre,
+            'reponse' => $reponse,     
+        ]));
+        
+        return $reponse;
     }
 
 }

@@ -6,12 +6,14 @@ import { MenuComponent } from './menu/menu.component';
 import { QuizzPageComponent } from './quizz-page/quizz-page.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthGuard } from './connect/auth.guard';
+import { QuestionAddComponent } from './question-add/question-add.component';
 
 const routes: Routes = [
   { path: 'connection', component: ConnectComponent },
   { path: 'menu', component: MenuComponent },
   { path: 'quizz', component: QuizzPageComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'addQuest', component: QuestionAddComponent },
   
 ];
 

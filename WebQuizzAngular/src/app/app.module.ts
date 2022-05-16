@@ -14,6 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { MenuComponent } from './menu/menu.component';
 import { CookieService } from 'ngx-cookie-service';
 import { authService } from './services/auth.service';
+import { QuestionAddComponent } from './question-add/question-add.component';
 
 
 
@@ -26,6 +27,7 @@ import { authService } from './services/auth.service';
     ConnectComponent,
     RegisterComponent,
     MenuComponent,
+    QuestionAddComponent,
   ],
   imports: [
     BrowserModule,
