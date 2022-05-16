@@ -50,4 +50,8 @@ export class ConnectComponent implements OnInit {
       }
     })
   }
+
+  signup() {
+    this.router.navigateByUrl('/register');
+  }
 }

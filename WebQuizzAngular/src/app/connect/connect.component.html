@@ -1,7 +1,7 @@
 <div class="background">
     <div class="form-card">
         <h2>Sign in</h2>
-        <h3>Thanks to log in or create an account before !</h3>
+        
         <div *ngIf="showText">
             <p>{{ text }}</p>
         </div>
@@ -16,5 +16,6 @@
         <div class="action-buttons">
             <button (click)="onConnect(idForm.value, passForm.value)">Connect</button>
         </div>
+        <a id='signup' (click)="signup()"><h2>Sign up</h2></a>
     </div>
 </div>

@@ -16,15 +16,9 @@
             <a routerLink="connection" >Sign in</a>
         </div>
     </a>
-
-    <a *ngIf="!cookie" routerLink="register" class="minideco">
+    <a *ngIf="cookie"  class="minideco" (click)="disconnect()">
         <div class="nav">
-            <a routerLink="register" >Sign up</a>
-        </div>
-    </a>
-    <a *ngIf="cookie" routerLink="register" class="minideco" (click)="disconnect()">
-        <div class="nav">
-            <a routerLink="register" >Déconnexion</a>
+            <a >Déconnexion</a>
         </div>
     </a>
 </div>

@@ -9,8 +9,8 @@ import { AuthGuard } from './connect/auth.guard';
 
 const routes: Routes = [
   { path: 'connection', component: ConnectComponent },
-  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
-  { path: 'quizz', component: QuizzPageComponent, canActivate: [AuthGuard] },
+  { path: 'menu', component: MenuComponent },
+  { path: 'quizz', component: QuizzPageComponent },
   { path: 'register', component: RegisterComponent },
   
 ];

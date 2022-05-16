@@ -17,13 +17,13 @@
 
 .titre {
     color: white;
-    font-size: xx-large;
+    font-size: 4vmin;
     margin-top: 5em;
 }
 
 .reponse {
     margin-top: 8em;
-    width: 50em;
+    width: 50vmax;
     height: 3em;
     border: solid 1px gray;
     border-radius: 16px;
@@ -39,7 +39,7 @@
 }
 
 #points {
-    margin-top: 5em;
+    margin-top: 1vmin;
     color: white;
     font-size: xx-large;
 }
