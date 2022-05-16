@@ -1,7 +1,9 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { interval } from 'rxjs';
 import { Question } from '../models/Question.models';
+import { authService } from '../services/auth.service';
 import { calculsService } from '../services/calculs.service';
 import { questionService } from '../services/question.service';
 
@@ -23,11 +25,14 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   @ViewChild("oneItem") oneItem: any;
   @ViewChildren("count") count!: QueryList<any>;
 
-  constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef) { }
+  constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef, private auth: authService) { }
 
   ngOnInit(): void {
+    // autocookie connection
+    this.auth.autoLog();
     // time of each call by the subscriber 
     const time = interval(60000);
+    // fetch all questions to call all of them then display for user
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
       this.showTitle = true;
@@ -35,6 +40,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     });
   }
 
+  // methods that check if an answer is correct and add 100 points 
   submitResponse(reponse: string) {
     this.userResponse = reponse;
     this.reponseForm.setValue('');
@@ -47,10 +53,12 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  // reload the view to display points value in real time
   ngAfterViewInit() {
     this.animateCount();
   }
 
+  // counter 
   animateCount() {
     let _this = this;
 

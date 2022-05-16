@@ -21,10 +21,24 @@ export class loginService {
         return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
     }
     addUser(name: string, pass: string) {
-        const myheader = new HttpHeaders().append('Content-Type', 'application/json; charset=utf-8').append('Accept', 'application/json').append('Acess-Controle-Allow-Origine', '*');
+        const myheader = new HttpHeaders().append('Content-Type', 'application/json; charset=utf-8');
         const param = new HttpParams().append('email', name).append('password', pass);
-        this.http.post('http://localhost:8000/users/add', JSON.stringify(param), {
+        this.http.post('http://localhost:8000/users/add/', JSON.stringify(param), {
             headers: myheader
     }).subscribe();
     }
+
+    getUsers() {
+        let users : EventEmitter<Logs[]> = new EventEmitter<Logs[]>();
+        
+        this.http.get<Logs[]>('http://localhost:8000/getUsers').subscribe(
+          (usersList) => {
+            users.emit(usersList);
+        }, (error) => {
+          console.log(error);
+        });
+        
+        return users;
+    
+      }
 }

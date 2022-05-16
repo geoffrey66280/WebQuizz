@@ -5,12 +5,14 @@ import { ConnectComponent } from './connect/connect.component';
 import { MenuComponent } from './menu/menu.component';
 import { QuizzPageComponent } from './quizz-page/quizz-page.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './connect/auth.guard';
 
 const routes: Routes = [
   { path: 'connection', component: ConnectComponent },
-  { path: 'menu', component: MenuComponent },
-  { path: 'quizz', component: QuizzPageComponent },
+  { path: 'menu', component: MenuComponent, canActivate: [AuthGuard] },
+  { path: 'quizz', component: QuizzPageComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
+  
 ];
 
 @NgModule({

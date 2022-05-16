@@ -4,6 +4,9 @@
         <div *ngIf="showText">
             <p>{{ text }}</p>
         </div>
+        <div>
+            {{ textMail }}
+        </div>
         <div class="form-group">
             <label for="UserName">Email</label>
             <input type="email" id="user" [formControl]="idForm">

@@ -12,6 +12,10 @@ import { calculsService } from './services/calculs.service';
 import { questionService } from './services/question.service';
 import { RegisterComponent } from './register/register.component';
 import { MenuComponent } from './menu/menu.component';
+import { CookieService } from 'ngx-cookie-service';
+import { authService } from './services/auth.service';
+
+
 
 @NgModule({
   declarations: [
@@ -27,9 +31,9 @@ import { MenuComponent } from './menu/menu.component';
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [calculsService, questionService],
+  providers: [calculsService, questionService, CookieService, authService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { EventEmitter, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Question } from '../models/Question.models';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class questionService {
     // Service to fetch all questions from database
     getAllQuestions() {
         let questions : EventEmitter<Question[]> = new EventEmitter<Question[]>();
-      
+        
         this.http.get<Question[]>('http://localhost:8000/getQuestions').subscribe(
           (questionList) => {
             questions.emit(questionList);

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { Logs } from '../models/Logs.models';
+import { authService } from '../services/auth.service';
+import { loginService } from '../services/login.service';
 
 @Component({
   selector: 'app-connect',
@@ -12,14 +17,37 @@ export class ConnectComponent implements OnInit {
   idForm = new FormControl('');
   text = 'Veuillez remplir le formulaire avec un identifiant et un mot de passe correct !';
   showText: boolean = false;
+  allUsers: Logs[] = [];
 
-  constructor() { }
+  constructor(private auth: authService, private router: Router, private logservice: loginService, private cookies: CookieService) { }
 
   ngOnInit(): void {
+    // cookie autoconnection
+    this.auth.autoLog();
+    // if cookie then prefill fields with user values but autlog do it instead
+    if (this.cookies.get('isConnected') && this.cookies.get('mel')) {
+      var decrypt = this.logservice.decrypt(this.cookies.get('isConnected'));
+      this.passForm.setValue(decrypt);
+      this.idForm.setValue(this.cookies.get('mel'))
+    }
   }
 
-  onConnect(email: string, pass: string) {
-
+  // check if user logs are correct then redirect to menu and create a cookie
+  onConnect(mail: string, pass: string) {
+    this.logservice.getUsers().subscribe((users) => {
+      this.allUsers = users;
+      for (let i = 0; i < this.allUsers.length; i++) {
+        var passDecrypt = this.logservice.decrypt(this.allUsers[i].password);
+        if (this.allUsers[i].email === mail && passDecrypt === pass) {
+          this.auth.login();
+          this.router.navigateByUrl('/menu');
+          this.cookies.set('mel', mail, 0.01);
+          this.cookies.set('isConnected', this.allUsers[i].password, 0.01);
+          window.location.reload();
+        } else {
+          this.showText = true;
+        }
+      }
+    })
   }
-
 }

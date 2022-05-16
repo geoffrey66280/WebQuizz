@@ -11,15 +11,20 @@
         </div>
     </a>
 
-    <a routerLink="connection" class="minideco">
+    <a *ngIf="!cookie" routerLink="connection" class="minideco">
         <div class="nav">
             <a routerLink="connection" >Sign in</a>
         </div>
     </a>
 
-    <a routerLink="register" class="minideco" *ngIf="!isSigned">
+    <a *ngIf="!cookie" routerLink="register" class="minideco">
         <div class="nav">
             <a routerLink="register" >Sign up</a>
+        </div>
+    </a>
+    <a *ngIf="cookie" routerLink="register" class="minideco" (click)="disconnect()">
+        <div class="nav">
+            <a routerLink="register" >Déconnexion</a>
         </div>
     </a>
 </div>
