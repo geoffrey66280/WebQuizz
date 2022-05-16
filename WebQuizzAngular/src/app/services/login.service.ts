@@ -20,6 +20,8 @@ export class loginService {
     decrypt(textToDecrypt: string) {
         return CryptoJS.AES.decrypt(textToDecrypt, this.secretKey.trim()).toString(CryptoJS.enc.Utf8);
     }
+
+    
     addUser(name: string, pass: string) {
         const myheader = new HttpHeaders().append('Content-Type', 'application/json; charset=utf-8');
         const param = new HttpParams().append('email', name).append('password', pass);
