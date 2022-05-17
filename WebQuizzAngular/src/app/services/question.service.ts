@@ -25,9 +25,9 @@ export class questionService {
       }
 
 
-      addQuestion(titre: string, reponse: string) {
+      addQuestion(titre: string, reponse: string, points: number) {
         const myheader = new HttpHeaders().append('Content-Type', 'application/json; charset=utf-8');
-        const param = new HttpParams().append('titre', titre).append('reponse', reponse);
+        const param = new HttpParams().append('titre', titre).append('reponse', reponse).append('points', points);
         this.http.post('http://localhost:8000/question/add/', JSON.stringify(param), {
             headers: myheader
     }).subscribe((response => {

@@ -55,7 +55,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     this.userResponse = reponse;
     this.reponseForm.setValue('');
     if (this.userResponse === this.currentQuestion.reponse) {
-      this.points += 100;
+      this.points += this.currentQuestion.points;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
     } else {
       this.points = 0;

@@ -49,9 +49,11 @@ class questionController extends AbstractController {
         $updates = $content['updates'];
         $paramUsers = $updates[0];
         $paramPass = $updates[1];
+        $paramPoints = $updates[2];
         
         $titre = $paramUsers['value'];
         $reponse = $paramPass['value'];
+        $points = $paramPoints['value'];
        
         // database request
        $question = $doc->getRepository(Question::class);
@@ -60,6 +62,7 @@ class questionController extends AbstractController {
         $question = new Question();
         $question->setTitre($titre);
         $question->setReponse($reponse);
+        $question->setPoints($points);
         // persist
         $dc = $doc->getManager();
 
@@ -70,7 +73,8 @@ class questionController extends AbstractController {
         $reponse = new Response();
         $reponse->setContent(json_encode([
             'titre' => $titre,
-            'reponse' => $reponse,     
+            'reponse' => $reponse, 
+            'points' => $points,     
         ]));
         
         return $reponse;

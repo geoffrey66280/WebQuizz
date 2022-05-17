@@ -10,8 +10,12 @@
             <label for="password">Réponse</label>
             <input type="text" id="password" [formControl]="reponseForm">
         </div>
+        <div class="form-group">
+            <label for="">Nombre de points</label>
+            <input type="number" id="nb" [formControl]="pointsForm">
+        </div>
         <div class="action-buttons">
-            <button (click)="addQuest(questionForm.value, reponseForm.value)">Ajouter</button>
+            <button (click)="addQuest(questionForm.value, reponseForm.value, pointsForm.value)">Ajouter</button>
         </div>
     </div>
 </div>

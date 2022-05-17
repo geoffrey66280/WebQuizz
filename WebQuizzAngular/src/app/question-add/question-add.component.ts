@@ -11,16 +11,18 @@ export class QuestionAddComponent implements OnInit {
 
   questionForm = new FormControl('');
   reponseForm = new FormControl('');
+  pointsForm = new FormControl('');
 
   constructor(private questionservice: questionService) { }
 
   ngOnInit(): void {
   }
 
-  addQuest(titre: string, reponse: string) {
-    this.questionservice.addQuestion(titre, reponse);
+  addQuest(titre: string, reponse: string, points: number) {
+    this.questionservice.addQuestion(titre, reponse, points);
     this.questionForm.setValue('');
     this.reponseForm.setValue('');
+    this.pointsForm.setValue('');
   }
 
 }
