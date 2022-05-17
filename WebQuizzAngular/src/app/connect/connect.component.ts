@@ -28,7 +28,7 @@ export class ConnectComponent implements OnInit {
     if (this.cookies.get('isConnected') && this.cookies.get('mel')) {
       var decrypt = this.logservice.decrypt(this.cookies.get('isConnected'));
       this.passForm.setValue(decrypt);
-      this.idForm.setValue(this.cookies.get('mel'))
+      this.idForm.setValue(this.logservice.decrypt(this.cookies.get('mel')));
     }
   }
 
@@ -38,10 +38,11 @@ export class ConnectComponent implements OnInit {
       this.allUsers = users;
       for (let i = 0; i < this.allUsers.length; i++) {
         var passDecrypt = this.logservice.decrypt(this.allUsers[i].password);
-        if (this.allUsers[i].email === mail && passDecrypt === pass) {
+        var mailDecrypt = this.logservice.decrypt(this.allUsers[i].email);
+        if (mailDecrypt === mail && passDecrypt === pass) {
           this.auth.login();
           this.router.navigateByUrl('/menu');
-          this.cookies.set('mel', mail, 0.01);
+          this.cookies.set('mel', this.allUsers[i].email, 0.01);
           this.cookies.set('isConnected', this.allUsers[i].password, 0.01);
           window.location.reload();
         } else {

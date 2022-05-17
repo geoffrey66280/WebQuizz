@@ -1,4 +1,10 @@
-<div id="quiz">
+<div class="quiz" *ngIf="init">
+    <button class="bouton" (click)="start()">Commencer</button>
+</div>
+<div class="quiz" *ngIf="!init">
+    <mat-spinner class="spinner"></mat-spinner>
+</div>
+<div class="quiz" *ngIf="showQuizz">
     <div class="title">
         <p class="titre">
             {{ currentQuestion.titre }}

@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
 
     if (this.allUsers) {
       for (let i = 0; i < this.allUsers.length; i++) {
-        if (email === this.allUsers[i].email) {
+        if (email === this.loginservice.decrypt(this.allUsers[i].email)) {
           this.isPresent = true;
           this.textMail = 'Mail déjà existant';
           break;
@@ -51,12 +51,13 @@ export class RegisterComponent implements OnInit {
       }
       if (!this.isPresent) {
         var passw = this.loginservice.encrypt(pass);
-        this.loginservice.addUser(email, passw);
+        var mailw = this.loginservice.encrypt(email);
+        this.loginservice.addUser(mailw, passw);
         this.passForm.setValue('');
         this.idForm.setValue('');
         this.auth.login();
         this.router.navigateByUrl('/menu');
-        this.cookies.set('mel', email, 0.01);
+        this.cookies.set('mel', mailw, 0.01);
         this.cookies.set('isConnected', passw, 0.01);
         window.location.reload();
       }

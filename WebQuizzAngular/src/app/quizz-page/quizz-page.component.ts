@@ -1,6 +1,7 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 import { interval } from 'rxjs';
 import { Question } from '../models/Question.models';
 import { authService } from '../services/auth.service';
@@ -14,6 +15,7 @@ import { questionService } from '../services/question.service';
 })
 export class QuizzPageComponent implements OnInit, AfterViewInit {
 
+  white: ThemePalette = 'primary';
   points: number = 0;
   currentQuestion!: Question;
   allQuestions: Question[] = [];
@@ -21,7 +23,8 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   reponseForm = new FormControl({ value: '', disabled: false }, Validators.required);
   isDisabled: boolean = false;
   showTitle: boolean = false;
-
+  showQuizz: boolean = false;
+  init: boolean = true;
   @ViewChild("oneItem") oneItem: any;
   @ViewChildren("count") count!: QueryList<any>;
 
@@ -32,12 +35,19 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     this.auth.autoLog();
     // time of each call by the subscriber 
     const time = interval(60000);
-    // fetch all questions to call all of them then display for user
+    
+    
+  }
+
+  start() {
+    this.init = false;
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
       this.showTitle = true;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)];
+      this.showQuizz = true;
     });
+
   }
 
   // methods that check if an answer is correct and add 100 points 

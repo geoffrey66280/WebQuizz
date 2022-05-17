@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { loginService } from '../services/login.service';
 
 @Component({
   selector: 'app-nav',
@@ -10,11 +11,13 @@ export class NavComponent implements OnInit {
 
   isSigned: boolean = false;
   cookie: any;
+  currentMail!: string;
 
-  constructor(private cookies: CookieService) { }
+  constructor(private cookies: CookieService, private loginservice: loginService) { }
 
   ngOnInit(): void {
     this.cookie = this.cookies.get('isConnected');
+    this.currentMail = this.loginservice.decrypt(this.cookies.get('mel'));
   }
 
   disconnect() {

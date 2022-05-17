@@ -15,6 +15,8 @@ import { MenuComponent } from './menu/menu.component';
 import { CookieService } from 'ngx-cookie-service';
 import { authService } from './services/auth.service';
 import { QuestionAddComponent } from './question-add/question-add.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
@@ -34,6 +36,8 @@ import { QuestionAddComponent } from './question-add/question-add.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [calculsService, questionService, CookieService, authService],
   bootstrap: [AppComponent]

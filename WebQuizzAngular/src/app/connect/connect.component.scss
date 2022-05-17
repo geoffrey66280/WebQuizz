@@ -15,6 +15,7 @@
     margin: 10em auto;
     padding: 10px 30px;
     box-shadow: black 4px 4px 20px;
+    border-radius: 32px;
   }
   
   .form-group {
@@ -23,13 +24,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.3px;
     font-size: large;
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
   
   input, textarea {
-    width: 60%;
+    width: 70%;
     border-radius: 14px;
     border: solid 1px;
     height: 2em;
