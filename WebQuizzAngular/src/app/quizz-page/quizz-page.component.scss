@@ -28,6 +28,10 @@
     }
 
 }
+#timer {
+    color: white;
+    font-size: xx-large;
+}
 .quiz {
     background-color: rgb(65, 31, 63);
     width: 100%;
@@ -46,7 +50,15 @@
     font-size: 4vmin;
     margin-top: 5em;
 }
-
+.pointVal {
+    opacity: 60%;
+    background-color: red;
+    height: 2vmax;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
 .reponse {
     margin-top: 8em;
     width: 50vmax;

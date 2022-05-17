@@ -2,7 +2,7 @@
     <button class="bouton" (click)="start()">Commencer</button>
 </div>
 <div class="quiz" *ngIf="!init">
-    <mat-spinner class="spinner"></mat-spinner>
+    <mat-spinner [color]="white" class="spinner"></mat-spinner>
 </div>
 <div class="quiz" *ngIf="showQuizz">
     <div class="title">
@@ -10,12 +10,20 @@
             {{ currentQuestion.titre }}
         </p>
     </div>
+    <div id="timer">
+        {{ timer }}
+    </div>
     <div>
         <input type="text" class="reponse" [formControl]="reponseForm"
             (keyup.enter)="submitResponse(reponseForm.value)">
     </div>
     <div id="points">
         <animations [digit]="points" [duration]="1000"></animations>
+    </div>
+    <mat-progress-spinner class="example-margin" [value]="pointVal">
+    </mat-progress-spinner>
+    <div class="pointVal" [ngStyle]="{'background-color':currentQuestion.points > 100 ? 'red' : 'green' }">
+
     </div>
 
 

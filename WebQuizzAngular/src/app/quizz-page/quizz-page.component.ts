@@ -14,7 +14,6 @@ import { questionService } from '../services/question.service';
   styleUrls: ['./quizz-page.component.scss']
 })
 export class QuizzPageComponent implements OnInit, AfterViewInit {
-
   white: ThemePalette = 'primary';
   points: number = 0;
   currentQuestion!: Question;
@@ -25,6 +24,8 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   showTitle: boolean = false;
   showQuizz: boolean = false;
   init: boolean = true;
+  timer: number = 20;
+  pointVal: number = 100;
   @ViewChild("oneItem") oneItem: any;
   @ViewChildren("count") count!: QueryList<any>;
 
@@ -34,18 +35,30 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     // autocookie connection
     this.auth.autoLog();
     // time of each call by the subscriber 
-    const time = interval(60000);
-    
-    
   }
 
   start() {
+    
     this.init = false;
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
       this.showTitle = true;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)];
+      this.points = this.currentQuestion.points;
       this.showQuizz = true;
+      interval(1000).subscribe(x => {
+
+        if (this.timer <= 0) {
+          this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
+          this.timer = 20;
+          this.pointVal = 100;
+        } else {
+          this.timer = this.timer - 1;
+          this.pointVal - 5;
+          console.log(this.timer);
+        }
+
+      });
     });
 
   }
