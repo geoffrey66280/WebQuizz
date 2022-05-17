@@ -1,8 +1,8 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { interval } from 'rxjs';
+import { interval, Observable, Subscription } from 'rxjs';
 import { Question } from '../models/Question.models';
 import { authService } from '../services/auth.service';
 import { calculsService } from '../services/calculs.service';
@@ -14,6 +14,7 @@ import { questionService } from '../services/question.service';
   styleUrls: ['./quizz-page.component.scss']
 })
 export class QuizzPageComponent implements OnInit, AfterViewInit {
+  sub$!: Subscription;
   white: ThemePalette = 'primary';
   points: number = 0;
   currentQuestion!: Question;
@@ -32,21 +33,20 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef, private auth: authService) { }
 
   ngOnInit(): void {
+   
     // autocookie connection
     this.auth.autoLog();
     // time of each call by the subscriber 
   }
 
   start() {
-    
     this.init = false;
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
       this.showTitle = true;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)];
-      this.points = this.currentQuestion.points;
       this.showQuizz = true;
-      interval(1000).subscribe(x => {
+      this.sub$ = interval(1000).subscribe(x => {
 
         if (this.timer <= 0) {
           this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
@@ -70,6 +70,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     if (this.userResponse === this.currentQuestion.reponse) {
       this.points += this.currentQuestion.points;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
+      this.timer = 20;
     } else {
       this.points = 0;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
@@ -108,5 +109,9 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         clearInterval(timer);
       }
     }, step);
+  }
+
+  ngOnDestroy() {
+    this.sub$.unsubscribe();
   }
 }
