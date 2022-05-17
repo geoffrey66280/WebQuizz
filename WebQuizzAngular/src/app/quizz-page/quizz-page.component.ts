@@ -24,6 +24,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   isDisabled: boolean = false;
   showTitle: boolean = false;
   showQuizz: boolean = false;
+  showSuivant: boolean = false;
   init: boolean = true;
   timer: number = 20;
   pointVal: number = 100;
@@ -33,25 +34,26 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef, private auth: authService) { }
 
   ngOnInit(): void {
-   
+    this.questionservice.getAllQuestions().subscribe((questions) => {
+      this.allQuestions = questions;
+    });
     // autocookie connection
     this.auth.autoLog();
     // time of each call by the subscriber 
   }
 
   start() {
-    this.init = false;
-    this.questionservice.getAllQuestions().subscribe((questions) => {
-      this.allQuestions = questions;
+     this.showSuivant = false
+      this.init = false;
       this.showTitle = true;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)];
       this.showQuizz = true;
       this.sub$ = interval(1000).subscribe(x => {
 
         if (this.timer <= 0) {
-          this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
-          this.timer = 20;
-          this.pointVal = 100;
+          this.reponseForm.disable();
+          this.sub$.unsubscribe();
+          this.showSuivant = true;
         } else {
           this.timer = this.timer - 1;
           this.pointVal - 5;
@@ -59,7 +61,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         }
 
       });
-    });
+   
 
   }
 
@@ -69,10 +71,10 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     this.reponseForm.setValue('');
     if (this.userResponse === this.currentQuestion.reponse) {
       this.points += this.currentQuestion.points;
-      this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
-      this.timer = 20;
+      this.reponseForm.disable();
+      this.sub$.unsubscribe();
+      this.showSuivant = true;
     } else {
-      this.points = 0;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
     }
   }
@@ -113,5 +115,12 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() {
     this.sub$.unsubscribe();
+  }
+
+  questionSuivante() {
+    this.timer = 20;
+    this.pointVal = 100;
+    this.reponseForm.enable();
+    this.start();
   }
 }

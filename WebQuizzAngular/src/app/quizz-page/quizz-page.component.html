@@ -1,5 +1,5 @@
 <div class="quiz" *ngIf="init">
-    <button class="bouton" (click)="start()">Commencer</button>
+    <button *ngIf="allQuestions" class="bouton" (click)="start()">Commencer</button>
 </div>
 <div class="quiz" *ngIf="!init">
     <mat-spinner [color]="white" class="spinner"></mat-spinner>
@@ -22,6 +22,7 @@
     </div>
     <mat-progress-spinner class="example-margin" [value]="pointVal">
     </mat-progress-spinner>
+    <button *ngIf="showSuivant" (click)="questionSuivante()">Suivant</button>
     <div class="pointVal" [ngStyle]="{'background-color':currentQuestion.points > 100 ? 'red' : 'green' }">
 
     </div>
