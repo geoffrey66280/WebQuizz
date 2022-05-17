@@ -7,9 +7,13 @@
         <div>
             {{ textMail }}
         </div>
-        <div class="form-group">
+        <div  class="form-group">
             <label for="UserName">Email</label>
-            <input type="email" id="user" [formControl]="idForm">
+            <div [formGroup]="userMail" class="form-group">
+
+        
+            <input type="email" id="user" [formControl]="idForm" formControlName="usermail">
+        </div>
         </div>
         <div class="form-group">
             <label for="password">Password</label>

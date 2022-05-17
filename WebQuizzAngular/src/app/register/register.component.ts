@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { retry } from 'rxjs';
@@ -14,6 +14,9 @@ import { questionService } from '../services/question.service';
 })
 export class RegisterComponent implements OnInit {
 
+  userMail = new FormGroup({
+    usermail: new FormControl('', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+  });
   passForm = new FormControl('', [Validators.email]);
   idForm = new FormControl('');
   text = 'Veuillez remplir le formulaire avec un identifiant et un mot de passe correct !';
@@ -36,30 +39,32 @@ export class RegisterComponent implements OnInit {
     })
   }
 
-  // methods that adds user logs into databse with crypted password then login into the app to create a cookie (15min) 
+  // methods that add users logs into databse with crypted password then login into the app to create a cookie (15min) 
   // then redirect to menu and reload page to hide sign menu
   onConnect(email: string, pass: string) {
     this.isPresent = false;
-
+    
     if (this.allUsers) {
       for (let i = 0; i < this.allUsers.length; i++) {
-        if (email === this.loginservice.decrypt(this.allUsers[i].email)) {
+        if (this.userMail.get('usermail')?.value === this.loginservice.decrypt(this.allUsers[i].email)) {
           this.isPresent = true;
           this.textMail = 'Mail déjà existant';
           break;
         }
       }
       if (!this.isPresent) {
-        var passw = this.loginservice.encrypt(pass);
-        var mailw = this.loginservice.encrypt(email);
-        this.loginservice.addUser(mailw, passw);
-        this.passForm.setValue('');
-        this.idForm.setValue('');
-        this.auth.login();
-        this.router.navigateByUrl('/menu');
-        this.cookies.set('mel', mailw, 0.01);
-        this.cookies.set('isConnected', passw, 0.01);
-        window.location.reload();
+        if (!this.userMail.get('usermail')?.invalid && pass.length > 3) {
+          var passw = this.loginservice.encrypt(pass);
+          var mailw = this.loginservice.encrypt(this.userMail.get('usermail')?.value);
+          this.loginservice.addUser(mailw, passw);
+          this.passForm.setValue('');
+          this.idForm.setValue('');
+          this.auth.login();
+          this.router.navigateByUrl('/menu');
+          this.cookies.set('mel', mailw, 0.01);
+          this.cookies.set('isConnected', passw, 0.01);
+          window.location.reload();
+        }
       }
     }
   }
