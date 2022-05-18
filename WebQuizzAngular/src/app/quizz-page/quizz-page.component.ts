@@ -131,7 +131,13 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
+    if (this.sub$) {
     this.sub$.unsubscribe();
+    }
+    if (this.pushPoints$) {
+    this.pushPoints$.unsubscribe();
+    }
+  
   }
 
   questionSuivante() {
