@@ -43,4 +43,18 @@ export class loginService {
         return users;
 
     }
+
+    getPointsById(id: number) {
+        let users: EventEmitter<Logs[]> = new EventEmitter<Logs[]>();
+
+        this.http.get<Logs[]>('http://localhost:8000/getPoints/' + id).subscribe(
+            (usersList) => {
+                users.emit(usersList);
+            }, (error) => {
+                console.log(error);
+            });
+
+        return users;
+
+    }
 }

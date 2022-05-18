@@ -2,10 +2,13 @@ import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit, ViewChild, ViewChildren, QueryList, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
+import { CookieService } from 'ngx-cookie-service';
 import { interval, Observable, Subscription } from 'rxjs';
+import { Logs } from '../models/Logs.models';
 import { Question } from '../models/Question.models';
 import { authService } from '../services/auth.service';
 import { calculsService } from '../services/calculs.service';
+import { loginService } from '../services/login.service';
 import { questionService } from '../services/question.service';
 
 @Component({
@@ -28,12 +31,23 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   init: boolean = true;
   timer: number = 20;
   pointVal: number = 100;
+  requestPoint: Logs[] = [];
   @ViewChild("oneItem") oneItem: any;
   @ViewChildren("count") count!: QueryList<any>;
 
-  constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef, private auth: authService) { }
+  constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef, private auth: authService, private cookies: CookieService, private loginservice: loginService) { }
 
   ngOnInit(): void {
+    if (this.cookies.get('id')) {
+      this.loginservice.getPointsById(Number(this.cookies.get('id'))).subscribe((points) => {
+        this.requestPoint = points;
+        this.points = this.requestPoint[0].points;
+      })
+      
+      
+    } else {
+     // getUserPoints(this.loginservice.decrypt(this.cookies.get('isConnected')));
+    }
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
     });

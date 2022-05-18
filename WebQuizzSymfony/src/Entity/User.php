@@ -19,6 +19,9 @@ class User
     #[ORM\Column(type: 'string', length: 255)]
     private $password;
 
+    #[ORM\Column(type: 'integer')]
+    private $points;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +47,17 @@ class User
     public function setPassword(string $password): self
     {
         $this->password = $password;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+    public function setPoints(int $points): self
+    {
+        $this->points = $points;
 
         return $this;
     }

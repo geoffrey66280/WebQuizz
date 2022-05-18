@@ -30,6 +30,22 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
+    public function getPoints(int $id)
+    {
+        $em = $this->getEntityManager();
+
+        $qb = $em->getRepository(User::class)
+        ->createQueryBuilder('usr')
+        ->select('usr.points')
+        ->where('usr.id = :ide')
+        ->setParameter('ide', $id);
+            
+
+        $query = $qb->getQuery();
+        return $query->getResult();
+
+    }
+
     public function remove(User $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);

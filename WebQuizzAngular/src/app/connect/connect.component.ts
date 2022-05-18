@@ -36,10 +36,12 @@ export class ConnectComponent implements OnInit {
   onConnect(mail: string, pass: string) {
     this.logservice.getUsers().subscribe((users) => {
       this.allUsers = users;
+      console.log(this.allUsers);
       for (let i = 0; i < this.allUsers.length; i++) {
         var passDecrypt = this.logservice.decrypt(this.allUsers[i].password);
         var mailDecrypt = this.logservice.decrypt(this.allUsers[i].email);
         if (mailDecrypt === mail && passDecrypt === pass) {
+          this.cookies.set('id', this.allUsers[i].id.toString());
           this.auth.login();
           this.router.navigateByUrl('/menu');
           this.cookies.set('mel', this.allUsers[i].email, 0.1);

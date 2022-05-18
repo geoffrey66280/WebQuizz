@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\UserRepository;
 
 
 class userController extends AbstractController {
@@ -74,6 +75,50 @@ class userController extends AbstractController {
         ]));
         
         return $reponse;
+    }
+
+    /**
+     * @Route("/users/points/{points}", name="update_points")
+     */
+    public function updatePoints(int $points, ManagerRegistry $doc, Request $request)
+    {
+
+       
+        // database request
+        $Users = $doc->getRepository(User::class);
+
+        // setTime of users
+        $user = new User();
+        $user->setPoints($points);
+        // persist
+        $dc = $doc->getManager();
+
+        // pushs
+        $dc->persist($user);
+        $dc->flush();
+
+    }
+
+    /**
+     * @Route("/getPoints/{id}", name="update_points")
+     */
+    public function getPointsById(UserRepository $repo, int $id, ManagerRegistry $doc)
+    {
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        
+       
+        // database request
+        $res = $repo->getPoints($id);
+        
+        
+        $json = $serializer->serialize($res, 'json');
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+        
+
     }
 
 }
