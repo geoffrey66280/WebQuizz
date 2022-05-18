@@ -42,11 +42,11 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
       this.loginservice.getPointsById(Number(this.cookies.get('id'))).subscribe((points) => {
         this.requestPoint = points;
         this.points = this.requestPoint[0].points;
-      })
-      
-      
+      });
+
+
     } else {
-     // getUserPoints(this.loginservice.decrypt(this.cookies.get('isConnected')));
+    
     }
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
@@ -57,6 +57,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   }
 
   start() {
+    if (this.allQuestions) {
       this.showSuivant = false
       this.init = false;
       this.showTitle = true;
@@ -74,8 +75,8 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         }
 
       });
-   
 
+    }
   }
 
   // methods that check if an answer is correct and add 100 points 
