@@ -42,8 +42,8 @@ export class ConnectComponent implements OnInit {
         if (mailDecrypt === mail && passDecrypt === pass) {
           this.auth.login();
           this.router.navigateByUrl('/menu');
-          this.cookies.set('mel', this.allUsers[i].email, 0.01);
-          this.cookies.set('isConnected', this.allUsers[i].password, 0.01);
+          this.cookies.set('mel', this.allUsers[i].email, 0.1);
+          this.cookies.set('isConnected', this.allUsers[i].password, 0.1);
           window.location.reload();
         } else {
           this.showText = true;

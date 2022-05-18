@@ -61,8 +61,8 @@ export class RegisterComponent implements OnInit {
           this.idForm.setValue('');
           this.auth.login();
           this.router.navigateByUrl('/menu');
-          this.cookies.set('mel', mailw, 0.01);
-          this.cookies.set('isConnected', passw, 0.01);
+          this.cookies.set('mel', mailw, 0.1);
+          this.cookies.set('isConnected', passw, 0.1);
           window.location.reload();
         }
       }

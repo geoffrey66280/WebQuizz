@@ -18,11 +18,11 @@
             (keyup.enter)="submitResponse(reponseForm.value)">
     </div>
     <div id="points">
-        <animations [digit]="points" [duration]="1000"></animations>
+        <animations  [digit]="points" [duration]="1000"></animations>
     </div>
-    <mat-progress-spinner class="example-margin" [value]="pointVal">
-    </mat-progress-spinner>
-    <button *ngIf="showSuivant" (click)="questionSuivante()">Suivant</button>
+    
+    
+    <button class="suivant" *ngIf="showSuivant" (click)="questionSuivante()">Suivant</button>
     <div class="pointVal" [ngStyle]="{'background-color':currentQuestion.points > 100 ? 'red' : 'green' }">
 
     </div>

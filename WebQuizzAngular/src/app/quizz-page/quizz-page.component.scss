@@ -29,6 +29,7 @@
 
 }
 #timer {
+    margin-top: 5vmax;
     color: white;
     font-size: xx-large;
 }
@@ -52,7 +53,7 @@
 }
 .pointVal {
     opacity: 60%;
-    background-color: red;
+    background-color: rgb(65, 31, 63);
     height: 2vmax;
     width: 100%;
     position: fixed;
@@ -80,4 +81,19 @@
     margin-top: 1vmin;
     color: white;
     font-size: xx-large;
+}
+.suivant {
+    margin-top: 2vmax;
+    background-color: white;
+    padding: 5px 15px 5px 15px;
+    border: solid black 1px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    box-shadow: 2px 2px 10px 2px;
+
+    &:hover {
+        transform: scale(1.07);
+        box-shadow: 2px 5px 15px 2px;
+    }
 }

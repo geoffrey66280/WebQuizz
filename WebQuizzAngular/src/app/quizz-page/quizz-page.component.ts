@@ -43,7 +43,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   }
 
   start() {
-     this.showSuivant = false
+      this.showSuivant = false
       this.init = false;
       this.showTitle = true;
       this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)];
@@ -57,7 +57,6 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         } else {
           this.timer = this.timer - 1;
           this.pointVal - 5;
-          console.log(this.timer);
         }
 
       });
@@ -75,7 +74,9 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
       this.sub$.unsubscribe();
       this.showSuivant = true;
     } else {
-      this.currentQuestion = this.allQuestions[this.calculservice.getRandomInt(this.allQuestions.length)]
+      this.reponseForm.disable();
+      this.sub$.unsubscribe();
+      this.showSuivant = true;
     }
   }
 
@@ -101,7 +102,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     let range, current: number, step, timer: any;
 
     range = end - 0;
-    current = 0;
+    current = this.points;
     step = Math.abs(Math.floor(duration / range));
 
     timer = setInterval(() => {
