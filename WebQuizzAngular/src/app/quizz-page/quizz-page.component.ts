@@ -44,17 +44,14 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         this.requestPoint = points;
         this.points = this.requestPoint[0].points;
       });
-    } else {
+      this.pushPoints$ = interval(20000).subscribe(x => {
+        this.loginservice.pushPoint(Number(this.cookies.get('id')), this.points);
+      })
     }
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
     });
     this.auth.autoLog();
-
-    this.pushPoints$ = interval(20000).subscribe(x => {
-      this.loginservice.pushPoint(Number(this.cookies.get('id')), this.points);
-    })
- 
   }
 
   start() {
@@ -132,12 +129,12 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
 
   ngOnDestroy() {
     if (this.sub$) {
-    this.sub$.unsubscribe();
+      this.sub$.unsubscribe();
     }
     if (this.pushPoints$) {
-    this.pushPoints$.unsubscribe();
+      this.pushPoints$.unsubscribe();
     }
-  
+
   }
 
   questionSuivante() {
