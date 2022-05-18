@@ -18,6 +18,7 @@ import { questionService } from '../services/question.service';
 })
 export class QuizzPageComponent implements OnInit, AfterViewInit {
   sub$!: Subscription;
+  pushPoints$!: Subscription;
   white: ThemePalette = 'primary';
   points: number = 0;
   currentQuestion!: Question;
@@ -43,17 +44,17 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         this.requestPoint = points;
         this.points = this.requestPoint[0].points;
       });
-
-
     } else {
-    
     }
     this.questionservice.getAllQuestions().subscribe((questions) => {
       this.allQuestions = questions;
     });
-    // autocookie connection
     this.auth.autoLog();
-    // time of each call by the subscriber 
+
+    this.pushPoints$ = interval(20000).subscribe(x => {
+      this.loginservice.pushPoint(Number(this.cookies.get('id')), this.points);
+    })
+ 
   }
 
   start() {

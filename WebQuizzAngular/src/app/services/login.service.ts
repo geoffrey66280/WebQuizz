@@ -57,4 +57,18 @@ export class loginService {
         return users;
 
     }
+
+    pushPoint(id: number, points: number) {
+        let users: EventEmitter<Logs[]> = new EventEmitter<Logs[]>();
+
+        this.http.get<Logs[]>('http://localhost:8000/pushPoint/' + id + '/' + points).subscribe(
+            (usersList) => {
+                users.emit(usersList);
+            }, (error) => {
+                console.log(error);
+            });
+
+        return users;
+
+    }
 }

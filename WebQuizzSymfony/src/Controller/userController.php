@@ -121,4 +121,29 @@ class userController extends AbstractController {
 
     }
 
+    /**
+     * @Route("/pushPoint/{id}/{points}", name="push_point")
+     */
+    public function pushPoint(int $id, int $points, ManagerRegistry $doc)
+    {
+        $encoders = [new XmlEncoder(), new JsonEncoder()];
+        $normalizers = [new ObjectNormalizer()];
+        $serializer = new Serializer($normalizers, $encoders);
+        
+       
+        // database request
+        $Users = $doc->getRepository(User::class)->findOneBy(['id' => $id]);
+        
+        $Users->setPoints($points);
+        $dc = $doc->getManager();
+        $dc->flush();
+        
+        $json = $serializer->serialize($Users, 'json');
+        $response = new Response($json);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+        
+
+    }
+
 }
