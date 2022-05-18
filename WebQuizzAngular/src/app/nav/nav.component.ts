@@ -12,10 +12,12 @@ export class NavComponent implements OnInit {
   isSigned: boolean = false;
   cookie: any;
   currentMail!: string;
+  mailUser: any;
 
   constructor(private cookies: CookieService, private loginservice: loginService) { }
 
   ngOnInit(): void {
+    this.mailUser = this.loginservice.decrypt(this.cookies.get('mel'));
     this.cookie = this.cookies.get('isConnected');
     this.currentMail = this.loginservice.decrypt(this.cookies.get('mel'));
   }
