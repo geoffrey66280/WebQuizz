@@ -29,6 +29,7 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   showTitle: boolean = false;
   showQuizz: boolean = false;
   showSuivant: boolean = false;
+  showError: boolean = false;
   init: boolean = true;
   timer: number = 20;
   pointVal: number = 100;
@@ -39,6 +40,9 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
   constructor(private questionservice: questionService, private calculservice: calculsService, private elRef: ElementRef, private auth: authService, private cookies: CookieService, private loginservice: loginService) { }
 
   ngOnInit(): void {
+    this.questionservice.getAllQuestions().subscribe((questions) => {
+      this.allQuestions = questions;
+    });
     if (this.cookies.get('id')) {
       this.loginservice.getPointsById(Number(this.cookies.get('id'))).subscribe((points) => {
         this.requestPoint = points;
@@ -48,14 +52,11 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
         this.loginservice.pushPoint(Number(this.cookies.get('id')), this.points);
       })
     }
-    this.questionservice.getAllQuestions().subscribe((questions) => {
-      this.allQuestions = questions;
-    });
     this.auth.autoLog();
   }
 
   start() {
-    if (this.allQuestions) {
+    if (this.allQuestions.length > 0) {
       this.showSuivant = false
       this.init = false;
       this.showTitle = true;
@@ -74,6 +75,8 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
 
       });
 
+    } else {
+      this.showError = true;
     }
   }
 

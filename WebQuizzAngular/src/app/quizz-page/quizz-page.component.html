@@ -1,5 +1,9 @@
 <div class="quiz" *ngIf="init">
-    <button *ngIf="allQuestions" class="bouton" (click)="start()">Commencer</button>
+    <button *ngIf="allQuestions.length > 0" class="bouton" (click)="start()">Commencer</button>
+    <div *ngIf="allQuestions.length < 1" class="space">
+        <mat-spinner [color]="white" class="spinner"></mat-spinner>
+    </div>
+
 </div>
 <div class="quiz" *ngIf="!init">
     <mat-spinner [color]="white" class="spinner"></mat-spinner>
@@ -18,10 +22,10 @@
             (keyup.enter)="submitResponse(reponseForm.value)">
     </div>
     <div id="points">
-        <animations  [digit]="points" [duration]="1000"></animations>
+        <animations [digit]="points" [duration]="1000"></animations>
     </div>
-    
-    
+
+
     <button class="suivant" *ngIf="showSuivant" (click)="questionSuivante()">Suivant</button>
     <div class="pointVal" [ngStyle]="{'background-color':currentQuestion.points > 100 ? 'red' : 'green' }">
 
