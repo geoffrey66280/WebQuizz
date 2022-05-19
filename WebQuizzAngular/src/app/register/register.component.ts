@@ -14,16 +14,28 @@ import { questionService } from '../services/question.service';
 })
 export class RegisterComponent implements OnInit {
 
+  // input of the user password
   passForm = new FormControl('', [Validators.email]);
-  idForm = new FormControl('');
-  text = 'Veuillez remplir le formulaire avec un identifiant et un mot de passe correct !';
-  showText: boolean = false;
-  cookie: any;
-  allUsers: Logs[] = [];
-  isPresent: boolean = false;
-  textMail: string = '';
 
-  constructor(private loginservice: loginService, private cookies: CookieService, private auth: authService, private router: Router) { }
+  // input of the username
+  idForm = new FormControl('');
+
+  // string that signals that form values are incorrect
+  text = 'Veuillez remplir le formulaire avec un identifiant et un mot de passe correct !';
+
+  // show the error text if form is incorrect
+  showText: boolean = false;
+
+  // current cookie
+  cookie: any;
+
+  // list of all Users
+  allUsers: Logs[] = [];
+
+  constructor(private loginservice: loginService,
+              private cookies: CookieService,
+              private auth: authService,
+              private router: Router) { }
 
   ngOnInit(): void {
     // autoconnect to know if a cookie is set 
@@ -31,6 +43,7 @@ export class RegisterComponent implements OnInit {
       this.auth.autoLog();
     }
 
+    // get all users
     this.loginservice.getUsers().subscribe((users) => {
       this.allUsers = users;
     })
@@ -40,18 +53,24 @@ export class RegisterComponent implements OnInit {
   // then redirect to menu and reload page to hide sign menu
   onConnect(email: string, pass: string) {
     
-    this.isPresent = false;
     if (this.allUsers) {
         if (pass.length > 3) {
+          // encrypt all user datas
           var passw = this.loginservice.encrypt(pass);
           var mailw = this.loginservice.encrypt(email);
+          // push the user
           this.loginservice.addUser(mailw, passw);
+          // reset input values
           this.passForm.setValue('');
           this.idForm.setValue('');
+          // login the new user
           this.auth.login();
+          // go to menu
           this.router.navigateByUrl('/menu');
+          // set cookies of the new user
           this.cookies.set('mel', mailw, 0.1);
           this.cookies.set('isConnected', passw, 0.1);
+          // restarting to set all new datas
           window.location.reload();
         }
     }

@@ -9,19 +9,22 @@ import { loginService } from '../services/login.service';
 })
 export class NavComponent implements OnInit {
 
-  isSigned: boolean = false;
+  // current cookie
   cookie: any;
-  currentMail!: string;
-  mailUser: any;
 
-  constructor(private cookies: CookieService, private loginservice: loginService) { }
+  // user mail 
+  currentMail!: string;
+
+  constructor(private cookies: CookieService,
+              private loginservice: loginService) { }
 
   ngOnInit(): void {
-    this.mailUser = this.loginservice.decrypt(this.cookies.get('mel'));
+    // fetch cookies (username and password)
     this.cookie = this.cookies.get('isConnected');
     this.currentMail = this.loginservice.decrypt(this.cookies.get('mel'));
   }
 
+  // disconnect the user on killing cookies
   disconnect() {
     this.cookies.deleteAll();
     window.location.reload();

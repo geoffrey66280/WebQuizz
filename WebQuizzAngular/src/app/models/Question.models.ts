@@ -3,4 +3,5 @@ export class Question {
     titre!: string;
     reponse!: string;
     points!: number;
+    passed: boolean = false;
 }

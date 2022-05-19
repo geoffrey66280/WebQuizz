@@ -24,7 +24,7 @@ export class questionService {
     
       }
 
-
+      // func that allows to add a new question with httpPOST
       addQuestion(titre: string, reponse: string, points: number) {
         const myheader = new HttpHeaders().append('Content-Type', 'application/json; charset=utf-8');
         const param = new HttpParams().append('titre', titre).append('reponse', reponse).append('points', points);

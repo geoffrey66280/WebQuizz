@@ -11,6 +11,7 @@ export class authService {
 
     constructor(private cookies: CookieService, private router: Router) { }
 
+    // log a user 
     login() {
         this.token = 'test';
     }
@@ -19,6 +20,7 @@ export class authService {
         return this.token;
     }
 
+    // autolog to avoid connecting every minutes
     autoLog() {
         if (this.cookies.get('isConnected') && this.cookies.get('mel')) {
             this.login();

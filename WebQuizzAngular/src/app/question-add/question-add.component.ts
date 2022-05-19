@@ -9,6 +9,7 @@ import { questionService } from '../services/question.service';
 })
 export class QuestionAddComponent implements OnInit {
 
+  // all input
   questionForm = new FormControl('');
   reponseForm = new FormControl('');
   pointsForm = new FormControl('');
@@ -18,8 +19,11 @@ export class QuestionAddComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // method to add questions
   addQuest(titre: string, reponse: string, points: number) {
+    // directly add the question corresponding to inputs
     this.questionservice.addQuestion(titre, reponse, points);
+    // reset inputs
     this.questionForm.setValue('');
     this.reponseForm.setValue('');
     this.pointsForm.setValue('');

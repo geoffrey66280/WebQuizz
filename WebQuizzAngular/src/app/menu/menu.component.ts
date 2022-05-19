@@ -11,10 +11,13 @@ import { loginService } from '../services/login.service';
 export class MenuComponent implements OnInit {
 
   
-  constructor(private auth: authService, private loginservice: loginService, private cookies: CookieService) { }
+  constructor(private loginservice: loginService,
+              private cookies: CookieService) { }
 
   ngOnInit(): void {
+    // if user have no cookies id 
     if (!this.cookies.get('id')) {
+      // get all users and fetching his id to get points
       this.loginservice.getUsers().subscribe((users) =>{
         for (let i = 0; i < users.length ; i++) {
           if (this.loginservice.decrypt(users[i].email) === this.loginservice.decrypt(this.cookies.get('mel'))) {
