@@ -89,6 +89,8 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
       this.pushPoints$ = interval(20000).subscribe(x => {
         this.loginservice.pushPoint(Number(this.cookies.get('id')), this.points);
       })
+    } else {
+      this.points = Number(sessionStorage.getItem('points'));
     }
     // autologin if cookie
     this.auth.autoLog();
@@ -139,6 +141,9 @@ export class QuizzPageComponent implements OnInit, AfterViewInit {
     if (this.userResponse === this.currentQuestion.reponse) {
       // add points of the question
       this.points += this.currentQuestion.points;
+      if (!this.cookies.get('id')) {
+      sessionStorage.setItem('points', this.points.toString())
+      }
       // disable input
       this.reponseForm.disable();
       // unsubscribe timer
