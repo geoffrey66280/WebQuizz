@@ -30,6 +30,7 @@ class UserRepository extends ServiceEntityRepository
         }
     }
 
+    // mysql query that get Points from a user id
     public function getPoints(int $id)
     {
         $em = $this->getEntityManager();

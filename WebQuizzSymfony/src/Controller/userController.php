@@ -17,6 +17,7 @@ use App\Repository\UserRepository;
 
 class userController extends AbstractController {
 
+    // this method will return all users
     /**
      * @Route("/getUsers", name="get_users")
      */
@@ -26,26 +27,31 @@ class userController extends AbstractController {
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
+        // database query
         $questions = $doctrine->getRepository(User::class)->findAll();
 
+        // eception
         if (!$questions) {
             throw $this->createNotFoundException(
                 'No Users found '
             );
         }
 
+        // serializing datas
         $json = $serializer->serialize($questions, 'json');
         $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 
+    // this method will add a new user to the db
     /**
      * @Route("/users/add/", name="add_user")
      */
     public function addUser(ManagerRegistry $doc, Request $request)
     {
 
+        // get the json content of th epost request
         $content = json_decode($request->getContent(), true);
         $updates = $content['updates'];
         $paramUsers = $updates[0];
@@ -57,7 +63,7 @@ class userController extends AbstractController {
         // database request
        $user = $doc->getRepository(User::class);
 
-        // setTime of users
+        // create the new User
         $user = new User();
         $user->setEmail($users);
         $user->setPassword($pass);
@@ -68,6 +74,7 @@ class userController extends AbstractController {
         $dc->persist($user);
         $dc->flush();
 
+        // post response datas
         $reponse = new Response();
         $reponse->setContent(json_encode([
             'email' => $users,
@@ -77,6 +84,7 @@ class userController extends AbstractController {
         return $reponse;
     }
 
+    // this methods is currently useless
     /**
      * @Route("/users/points/{points}", name="update_points")
      */
@@ -99,6 +107,7 @@ class userController extends AbstractController {
 
     }
 
+    // this methods allow the angular to fetch the current user points related to and id
     /**
      * @Route("/getPoints/{id}", name="update_points")
      */
@@ -121,6 +130,8 @@ class userController extends AbstractController {
 
     }
 
+    // this methods will update user points with id
+
     /**
      * @Route("/pushPoint/{id}/{points}", name="push_point")
      */
@@ -134,6 +145,7 @@ class userController extends AbstractController {
         // database request
         $Users = $doc->getRepository(User::class)->findOneBy(['id' => $id]);
         
+        // set the new points value for the user
         $Users->setPoints($points);
         $dc = $doc->getManager();
         $dc->flush();

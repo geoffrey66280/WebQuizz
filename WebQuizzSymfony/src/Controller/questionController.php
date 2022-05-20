@@ -16,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class questionController extends AbstractController {
 
+    // this methodss will return all questions stored in the database
     /**
      * @Route("/getQuestions", name="get_questions")
      */
@@ -25,27 +26,34 @@ class questionController extends AbstractController {
         $normalizers = [new ObjectNormalizer()];
         $serializer = new Serializer($normalizers, $encoders);
 
+        // mysql query
         $questions = $doctrine->getRepository(Question::class)->findAll();
 
+        // exception 
         if (!$questions) {
             throw $this->createNotFoundException(
                 'No questions found '
             );
         }
 
+        // serializing datas
         $json = $serializer->serialize($questions, 'json');
         $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 
+    // this methods will add a new question to the database
     /**
      * @Route("/question/add/", name="add_question")
      */
     public function addUser(ManagerRegistry $doc, Request $request)
     {
 
+        // get the json of the post request
         $content = json_decode($request->getContent(), true);
+
+        // transforming array into values
         $updates = $content['updates'];
         $paramUsers = $updates[0];
         $paramPass = $updates[1];
@@ -55,10 +63,10 @@ class questionController extends AbstractController {
         $reponse = $paramPass['value'];
         $points = $paramPoints['value'];
        
-        // database request
+        // database query
        $question = $doc->getRepository(Question::class);
 
-        // setTime of users
+        // create the question object with all values
         $question = new Question();
         $question->setTitre($titre);
         $question->setReponse($reponse);
@@ -70,6 +78,7 @@ class questionController extends AbstractController {
         $dc->persist($question);
         $dc->flush();
 
+        // return the datas 
         $reponse = new Response();
         $reponse->setContent(json_encode([
             'titre' => $titre,
